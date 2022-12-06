@@ -52,6 +52,20 @@ app.post("/user/signup", async (req, res, next) => {
   res.status(201).json({ message: "userCreated" });
 });
 
+app.post("/user/signin", async (req, res) => {
+  const { email, password } = req.body;
+
+  await myDataSource.query(
+    `INSERT INTO users(
+      email,
+      password
+    ) VALUES (?, ?);
+		`,
+    [email, password]
+  );
+  res.status(201).json({ message: "환영합니다." });
+});
+
 const server = http.createServer(app);
 const PORT = process.env.PORT;
 
