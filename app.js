@@ -5,9 +5,6 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const { DataSource } = require("typeorm");
-const jwt = require("jsonwebtoken");
-
-const bcrypt = require("bcrypt");
 
 const appDataSource = new DataSource({
   type: process.env.TYPEORM_CONNECTION,
@@ -29,41 +26,7 @@ app.use(cors());
 app.use(morgan("dev"));
 
 app.get("/ping", (req, res) => {
-  res.status(201).json({ message: "pong" });
-});
-
-app.post("/user/signup", async (req, res, next) => {
-  const { name, email, profileImage, password } = req.body; //
-
-  const SALT_ROUNDS = 10;
-
-  const hashed_Password = await bcrypt.hash(password, SALT_ROUNDS);
-
-  await appDataSource.query(
-    `INSERT INTO users(
-      name,
-      email,
-      profile_image,
-      password
-    ) VALUES (?, ?, ?, ?);
-`,
-    [name, email, profileImage, hashed_Password]
-  );
-  res.status(201).json({ message: "userCreated" });
-});
-
-app.post("/user/signin", async (req, res) => {
-  const { email, password } = req.body;
-
-  await myDataSource.query(
-    `INSERT INTO users(
-      email,
-      password
-    ) VALUES (?, ?);
-		`,
-    [email, password]
-  );
-  res.status(201).json({ message: "환영합니다." });
+  res.status(200).json({ message: "pong" });
 });
 
 const server = http.createServer(app);

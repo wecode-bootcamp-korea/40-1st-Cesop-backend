@@ -10,10 +10,10 @@ CREATE TABLE
     ingredient varchar(100),
     description text,
     image_url varchar(3000),
-    created_at timestamp,
-    modified_at timestamp,
     PRIMARY KEY(id),
-    FOREIGN KEY (categories_id) REFERENCES sub_categories (id)
+    FOREIGN KEY (categories_id) REFERENCES sub_categories (id),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 
 -- migrate:down

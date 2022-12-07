@@ -8,10 +8,10 @@ CREATE TABLE
     password varchar(200),
     phone_number varchar(150),
     point decimal,
-    created_at timestamp,
-    modified_at timestamp,
-    PRIMARY KEY(id)
-    
+    PRIMARY KEY(id),
+    CONSTRAINT users_email_fkey UNIQUE(email),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 
 -- migrate:down
