@@ -9,6 +9,5 @@ CREATE TABLE
     PRIMARY KEY(id),
     FOREIGN KEY (order_id) REFERENCES orders (id)
  );
-
--- migrate:down
+ -- migrate:down
 DROP TABLE order_details;
