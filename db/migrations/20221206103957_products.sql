@@ -2,7 +2,7 @@
 CREATE TABLE
   products (
     id int NOT NULL auto_increment PRIMARY KEY,
-    sub_category_id int,
+    sub_categories int,
     product_name VARCHAR(200),
     product_image VARCHAR(3000),
     size VARCHAR(50),
