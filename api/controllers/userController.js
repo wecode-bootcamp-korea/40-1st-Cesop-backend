@@ -2,9 +2,9 @@ const { userService } = require('../services')
 const { catchAsync } = require('../utils/error')
 
 const signUp = catchAsync(async (req, res) => {
-  const { last_name, first_name, email, password } = req.body;
+  const { lastName, firstName, email, password } = req.body;
 
-	const insertId = await userService.signUp(last_name, first_name, email, password)
+	const insertId = await userService.signUp(lastName, firstName, email, password)
 
 	res.status(201).json({ insertId });
 })

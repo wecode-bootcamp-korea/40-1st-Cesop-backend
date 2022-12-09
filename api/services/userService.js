@@ -3,6 +3,9 @@ const jwt = require("jsonwebtoken");
 
 const { userDao } = require("../models");
 
+const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
 const hashPassword = async plaintextPassword => {
   const saltRounds = 10;
   const salt = await bcrypt.genSalt(saltRounds);
@@ -14,11 +17,8 @@ const getUserById = async id => {
   return await userDao.getUserById(id);
 };
 
-const signUp = async (last_name, first_name, email, password) => {
-  const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
-  if (!last_name || !first_name || !email || !password) {
+const signUp = async (lastName, firstName, email, password) => {
+  if (!lastName || !firstName || !email || !password) {
     const error = new Error("KEY_ERROR");
     error.statusCode = 400;
 
@@ -41,14 +41,10 @@ const signUp = async (last_name, first_name, email, password) => {
 
   const hashedPassword = await hashPassword(password);
 
-  return await userDao.createUser(last_name, first_name, email, hashedPassword);
+  return await userDao.createUser(lastName, firstName, email, hashedPassword);
 };
 
 const signIn = async (email, password) => {
-
-  const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
   if (!emailRegex.test(email)) {
     const error = new Error("INVALID_EMAIL");
     error.statusCode = 401;

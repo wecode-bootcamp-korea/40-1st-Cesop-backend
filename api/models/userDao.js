@@ -1,6 +1,6 @@
 const dataSource = require("./dataSource");
 
-const createUser = async (last_name, first_name, email, password) => {
+const createUser = async (lastName, firstName, email, password) => {
   const result = await dataSource.query(
     `
 	  INSERT INTO users (
@@ -14,7 +14,7 @@ const createUser = async (last_name, first_name, email, password) => {
 				?, 
 				?
 		)`,
-    [last_name, first_name, email, password]
+    [lastName, firstName, email, password]
   );
 
   return result.insertId;
