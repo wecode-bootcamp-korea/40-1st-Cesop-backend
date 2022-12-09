@@ -1,43 +1,20 @@
-const http = require("http");
-
 require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
-const { DataSource } = require("typeorm");
 
-const appDataSource = new DataSource({
-  type: process.env.TYPEORM_CONNECTION,
-  host: process.env.TYPEORM_HOST,
-  port: process.env.TYPEORM_PORT,
-  username: process.env.TYPEORM_USERNAME,
-  password: process.env.TYPEORM_PASSWORD,
-  database: process.env.TYPEORM_DATABASE
-});
+const express = require('express');
+const cors    = require('cors');
+const morgan  = require('morgan');
 
-appDataSource.initialize().then(() => {
-  console.log("Data Source has been initialized!");
-});
+const route   = require('./api/routes')
+const { globalErrorHandler } = require('./api/utils/error')
 
-const app = express();
+const app     = express();
 
-app.use(express.json());
 app.use(cors());
-app.use(morgan("dev"));
+app.use(morgan("combined"));
+app.use(express.json());
+app.use(route)
+app.use(globalErrorHandler)
 
-app.get("/ping", (req, res) => {
-  res.status(200).json({ message: "pong" });
+app.listen(8000, () => {
+  console.log(`Listening to request on 127.0.0.1:8000`);
 });
-
-const server = http.createServer(app);
-const PORT = process.env.PORT;
-
-const start = async () => {
-  try {
-    server.listen(PORT, () => console.log(`server is listening on ${PORT}`));
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-start();
