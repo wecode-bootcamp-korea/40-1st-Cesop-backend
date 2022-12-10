@@ -16,7 +16,7 @@ CREATE TABLE
     amount_used VARCHAR(100),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (sub_category_id) REFERENCES sub_categories (id)
+    FOREIGN KEY (sub_categories) REFERENCES sub_categories (id)
   );
 
 -- migrate:down
