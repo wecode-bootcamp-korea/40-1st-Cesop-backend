@@ -6,7 +6,7 @@ CREATE TABLE
     product_name VARCHAR(200),
     product_image VARCHAR(3000),
     size VARCHAR(50),
-    price decimal(10,2),
+    price decimal(10),
     product_description VARCHAR(1000),
     feeling VARCHAR(50),
     skin_type VARCHAR(50),
