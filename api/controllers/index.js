@@ -1,7 +1,7 @@
-const userController = require('./userController')
-const postController = require('./postController')
+const userController = require("./userController");
+const itemController = require("./itemController");
 
-module.exports = { 
-	userController,
-	postController
-}
+module.exports = {
+  userController,
+  itemController
+};

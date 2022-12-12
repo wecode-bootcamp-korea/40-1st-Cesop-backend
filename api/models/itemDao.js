@@ -1,6 +1,6 @@
 const dataSource = require("./dataSource");
 
-const getAllPosts = async () => {
+const getAllItems = async () => {
   const resultAll = await dataSource.query(
     `SELECT
 		 *
@@ -10,7 +10,7 @@ const getAllPosts = async () => {
   return resultAll;
 };
 
-const getPostsByUserId = async id => {
+const getItemsByUserId = async id => {
   const results = await dataSource.query(
     `
 		SELECT 
@@ -24,7 +24,7 @@ const getPostsByUserId = async id => {
   return results;
 };
 
-const getPostsByName = async name => {
+const getItemsByName = async name => {
   const result = await dataSource.query(
     `
 		SELECT 
@@ -40,8 +40,8 @@ const getPostsByName = async name => {
 };
 
 module.exports = {
-  getAllPosts,
-  getPostsByUserId,
-  getPostsByName
+  getAllItems,
+  getItemsByUserId,
+  getItemsByName
 };
 
