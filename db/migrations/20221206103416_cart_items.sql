@@ -4,6 +4,8 @@ CREATE TABLE
     id int not null auto_increment,
     user_id int,
     product_id int,
+    quantity int,
+    sub_total int,
     PRIMARY Key (id),
     Foreign Key (user_id) REFERENCES products(id),
     Foreign Key (product_id) REFERENCES users (id)

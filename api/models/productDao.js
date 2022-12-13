@@ -1,6 +1,6 @@
 const dataSource = require("./dataSource");
 
-const getAllItems = async () => {
+const getAllProducts = async () => {
   const resultAll = await dataSource.query(
     `SELECT
 		 *
@@ -10,7 +10,7 @@ const getAllItems = async () => {
   return resultAll;
 };
 
-const getItemsByUserId = async id => {
+const getProductsByCategoryId = async id => {
   const results = await dataSource.query(
     `
 		SELECT 
@@ -18,13 +18,13 @@ const getItemsByUserId = async id => {
 		FROM 
 		products 
 		WHERE 
-		sub_categories = '${id}'
+		sub_categories_id = '${id}'
 		`
   );
   return results;
 };
 
-const getItemsByName = async name => {
+const getProductsByName = async name => {
   const result = await dataSource.query(
     `
 		SELECT 
@@ -35,13 +35,12 @@ const getItemsByName = async name => {
 		product_name LIKE '%${name}%'
 		`
   );
-  
+
   return result;
 };
 
 module.exports = {
-  getAllItems,
-  getItemsByUserId,
-  getItemsByName
+  getAllProducts,
+  getProductsByCategoryId,
+  getProductsByName
 };
-
