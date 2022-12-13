@@ -10,7 +10,7 @@ const getAllProducts = async () => {
     size,
     price,
     product_description,
-    feeling, g
+    feeling, 
     texture_image,
     howtouse, 
     texture,
