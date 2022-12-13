@@ -6,11 +6,16 @@ const getAllProducts = catchAsync(async (req, res) => {
   res.status(200).json(products);
 });
 
-const getProductsById = catchAsync(async (req, res) => {
-  const id = req.params.id;
-  const products = await productService.getProductsByCategories(id);
+const getProductById = catchAsync(async (req, res) => {
+  const productId = req.params.productId;
+  const products = await productService.getProductById(productId);
   return res.status(200).json(products);
 });
+
+const getProductsByUserId = catchAsync(async (req, res) => {
+  const product = await productService.getProductsByUserId(id);
+  res.status(200).json(product);
+}); //
 
 const getProducts = catchAsync(async (req, res) => {
   const name = req.query.name;
@@ -20,6 +25,7 @@ const getProducts = catchAsync(async (req, res) => {
 
 module.exports = {
   getAllProducts,
-  getProductsById,
-  getProducts
+  getProductById,
+  getProductsByUserId, //
+  getProducts,
 };

@@ -4,19 +4,24 @@ const getAllProducts = async () => {
   return await productDao.getAllProducts();
 };
 
-const getProductsByCategories = async id => {
-  const products = await productDao.getProductsByCategoryId(id);
+const getProductById = async (productId) => {
+  const products = await productDao.getProductsByCategories(productId);
   return products;
 };
 
-const getProductsByName = async name => {
+const getProductsByCategoryId = async (id) => {
+  const products = await productDao.getProductsByCategoryId(id);
+  return products;
+}; //
+
+const getProductsByName = async (name) => {
   const products = await productDao.getProductsByName(name);
   return products;
 };
 
 module.exports = {
   getAllProducts,
-  getProductsByCategories,
-  getProductsByName
+  getProductById,
+  getProductsByCategoryId, //
+  getProductsByName,
 };
-
