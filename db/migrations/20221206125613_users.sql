@@ -7,7 +7,7 @@ CREATE TABLE
     email varchar(100),
     password varchar(200),
     phone_number varchar(150),
-    point decimal(10, 2),
+    point int,
     PRIMARY KEY(id),
     CONSTRAINT users_email_fkey UNIQUE(email),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
