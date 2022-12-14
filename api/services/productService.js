@@ -5,7 +5,7 @@ const getAllProducts = async () => {
 };
 
 const getProductById = async (productId) => {
-  const products = await productDao.getProductsByCategories(productId);
+  const products = await productDao.getProductById(productId);
   return products;
 };
 

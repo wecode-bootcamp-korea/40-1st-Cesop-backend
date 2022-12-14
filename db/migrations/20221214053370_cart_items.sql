@@ -7,8 +7,8 @@ CREATE TABLE
     quantity int,
     sub_total int,
     PRIMARY Key (id),
-    Foreign Key (user_id) REFERENCES products(id),
-    Foreign Key (product_id) REFERENCES users (id)
+    Foreign Key (user_id) REFERENCES users(id),
+    Foreign Key (product_id) REFERENCES products(id)
   );
 -- migrate:down
 DROP TABLE cart_items;

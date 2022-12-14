@@ -54,7 +54,7 @@ const getProductById = async (productId) => {
   const product = await dataSource.query(
     `SELECT
       id, 
-      sub_categories_id, 
+      sub_categories, 
       product_name,
       product_image, 
       size,
