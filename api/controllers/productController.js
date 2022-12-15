@@ -19,9 +19,10 @@ const getProductByCategory = catchAsync(async (req, res) => {
 });
 
 const getProductsByUserId = catchAsync(async (req, res) => {
-  const product = await productService.getProductsByUserId(productId);
+  const id = req.params.id;
+  const product = await productService.getProductsByUserId(id);
   res.status(200).json(product);
-});  
+});
 
 const getProductsByName = catchAsync(async (req, res) => {
   const name = req.query.name;
@@ -33,6 +34,6 @@ module.exports = {
   getAllProducts,
   getProductByMain,
   getProductByCategory,
-  getProductsByUserId, 
+  getProductsByUserId,
   getProductsByName
 };

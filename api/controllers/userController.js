@@ -10,14 +10,15 @@ const signUp = catchAsync(async (req, res) => {
     email,
     password
   );
-  
-  try {
 
+  try {
   } catch (error) {
     res.status(error.statusCode).json({ message: error.message });
   }
 
-  res.status(201, insertId).json({ message: `welcome ${lastName + firstName}` });
+  res
+    .status(201, insertId)
+    .json({ message: `welcome ${lastName + firstName}` });
 });
 
 const signIn = async (req, res) => {

@@ -28,7 +28,8 @@ const getAllProducts = async () => {
 const getProductByMain = async id => {
   const results = await dataSource.query(
     `
-		SELECT 
+		SELECT
+    sub_category_id,
 		product_name,
     product_image, 
     size,
@@ -77,7 +78,7 @@ const getProductByCategory = async id => {
   return results;
 };
 
-const getProductsByUserId = async productId => {
+const getProductsByUserId = async id => {
   const product = await dataSource.query(
     `SELECT
       id, 
@@ -97,7 +98,7 @@ const getProductsByUserId = async productId => {
       updated_at 
 		 FROM products
      WHERE 
-      products.id = '${productId}'
+      products.id = '${id}'
 		`
   );
   return product;
@@ -127,7 +128,6 @@ const getProductsByName = async name => {
 		product_name LIKE '%${name}%'
 		`
   );
-
   return result;
 };
 

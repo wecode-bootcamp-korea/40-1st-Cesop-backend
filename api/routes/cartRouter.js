@@ -5,14 +5,16 @@ const { loginRequired } = require("../utils/auth");
 
 const router = express.Router();
 
-// router.post("/", cartController.addToCart);
+//실제 써야하는 코드
+// router.post("/", cartController.addToCart); 
 // router.get("/", loginRequired, cartController.getProductsFromCart);
 // router.patch("/", loginRequired, cartController.updateCart);
 // router.delete("/:cartId", loginRequired, cartController.deleteFromCart);
 
+//테스트용 코드
 router.post("/add", cartController.addToCart);
 router.get("/", cartController.getProductsFromCart);
-router.patch("/", cartController.updateCart);
+router.put("/:productId", cartController.updateCart);
 router.delete("/:id", cartController.deleteFromCart);
 
 module.exports = router;

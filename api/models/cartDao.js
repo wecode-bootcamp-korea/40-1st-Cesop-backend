@@ -7,6 +7,7 @@ const addToCart = async (productName, quantity, price, totalPrice) => {
       product_name, 
       quantity,
       price,
+      sub_price
       total_price
 		) VALUES (?, ?,	?, ?)`,
     [productName, quantity, price, totalPrice]
@@ -32,52 +33,29 @@ const getProductsFromCart = async cartId => {
   return result;
 };
 
-const updateCart = async (productName, quantity, price, totalPrice) => {
-  const queryRunner = appDataSource.createQueryRunner();
-  await queryRunner.connect();
-  await queryRunner.startTransaction();
-
-  try {
-    if (!productName) {
-      productName = null;
-    }
-    if (!quantity) {
-      quantity = null;
-    }
-
-    const updateProduct = await queryRunner.query(
-      `
-	   UPDATE cart_items
-     SET  productName = ?,
-          quantity    = ?,
-          price       = ?,
-          total_Price = ?
-          WHERE id = ? AND product_id = ? AND user_id = ?`,
-      [productName, quantity, price, totalPrice]
-    );
-
-    if (updateProduct !== 1) throw new Error("UNEXPECTED_CART_ITEM_UPDATED");
-
-    const result = await queryRunner.query(
-      `   
-    SELECT
-      c.id,
-      c.product_name,
-      c.quantity,
-      c.price,
-      c.total_price
-    FROM cart_items c  
-    INNER JOIN users u On u.id = c.user_id
-    WHERE u.id =? And c.id =?`,
-      [userId, postId]
-    );
-    await queryRunner.commitTransaction();
-    return result;
-  } catch (err) {
-    await queryRunner.rollbackTransaction();
-  } finally {
-    await queryRunner.release();
-  }
+const updateCart = async (
+  //
+  productName,
+  quantity,
+  price,
+  totalPrice,
+  userId,
+  productId
+) => {
+  const result = await dataSource.query(
+    `   
+    UPDATE cart_items
+    SET
+      product_name = ?,
+      quantity    = ?,
+      price       = ?,
+      total_price = ?
+    WHERE user_id = ? AND product_id = ?
+    `,
+    [productName, quantity, price, totalPrice, userId, productId]
+  );
+  // console.log(result.affectedRows);
+  return result;
 };
 
 const deleteFromCart = async id => {

@@ -16,7 +16,6 @@ const createUser = async (lastName, firstName, email, password) => {
 		)`,
     [lastName, firstName, email, password]
   );
-
   return result.insertId;
 };
 
@@ -32,7 +31,6 @@ const getUserByEmail = async email => {
 		WHERE email=?`,
     [email]
   );
-
   return result[0];
 };
 
@@ -49,7 +47,6 @@ const getUserById = async id => {
 		WHERE id=?`,
     [id]
   );
-
   return result[0];
 };
 
@@ -60,11 +57,9 @@ const info = async (id) => {
 			last_name,
 			first_name,
 			email			
-		FROM users WHERE = ? 
-		
+		FROM users WHERE = ? 		
 		`, [id]
   );
-
   return result;
 };
 
