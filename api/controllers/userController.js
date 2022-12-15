@@ -11,7 +11,14 @@ const signUp = catchAsync(async (req, res) => {
     password
   );
 
-  res.status(201).json({ insertId });
+  try {
+  } catch (error) {
+    res.status(error.statusCode).json({ message: error.message });
+  }
+
+  res
+    .status(201, insertId)
+    .json({ message: `welcome ${lastName + firstName}` });
 });
 
 const signIn = async (req, res) => {
@@ -25,7 +32,17 @@ const signIn = async (req, res) => {
   }
 };
 
+const info = async (req, res) => {
+  try {
+    const userinfo = await userService.signIn();
+    res.status(200).json({ userinfo });
+  } catch (error) {
+    res.status(error.statusCode).json({ message: error.message });
+  }
+};
+
 module.exports = {
   signUp,
-  signIn
+  signIn,
+  info
 };

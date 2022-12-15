@@ -6,18 +6,25 @@ const getAllProducts = catchAsync(async (req, res) => {
   res.status(200).json(products);
 });
 
-const getProductById = catchAsync(async (req, res) => {
-  const productId = req.params.productId;
-  const products = await productService.getProductById(productId);
+const getProductByMain = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const products = await productService.getProductByMain(id);
+  return res.status(200).json(products);
+});
+
+const getProductByCategory = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const products = await productService.getProductByCategory(id);
   return res.status(200).json(products);
 });
 
 const getProductsByUserId = catchAsync(async (req, res) => {
+  const id = req.params.id;
   const product = await productService.getProductsByUserId(id);
   res.status(200).json(product);
-}); //
+});
 
-const getProducts = catchAsync(async (req, res) => {
+const getProductsByName = catchAsync(async (req, res) => {
   const name = req.query.name;
   const product = await productService.getProductsByName(name);
   return res.status(200).json(product);
@@ -25,7 +32,8 @@ const getProducts = catchAsync(async (req, res) => {
 
 module.exports = {
   getAllProducts,
-  getProductById,
-  getProductsByUserId, //
-  getProducts,
+  getProductByMain,
+  getProductByCategory,
+  getProductsByUserId,
+  getProductsByName
 };
