@@ -6,7 +6,7 @@ const { loginRequired } = require("../utils/auth");
 const router = express.Router();
 
 //실제 써야하는 코드
-// router.post("/", cartController.addToCart); 
+// router.post("/", cartController.addToCart);
 // router.get("/", loginRequired, cartController.getProductsFromCart);
 // router.patch("/", loginRequired, cartController.updateCart);
 // router.delete("/:cartId", loginRequired, cartController.deleteFromCart);
