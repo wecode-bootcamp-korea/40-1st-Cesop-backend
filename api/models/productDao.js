@@ -27,7 +27,9 @@ const getAllProducts = async () => {
 const getProductsByCategories = async (id) => {
   const results = await dataSource.query(
     `
-		SELECT 
+		SELECT
+    main_category_id,
+    sub_category_id,
 		product_name,
     product_image, 
     size,
@@ -54,7 +56,8 @@ const getProductById = async (productId) => {
   const product = await dataSource.query(
     `SELECT
       id, 
-      sub_categories, 
+      main_category_id,
+      sub_category_id,
       product_name,
       product_image, 
       size,

@@ -3,5 +3,5 @@ const productController = require("./productController");
 
 module.exports = {
   userController,
-  productController
+  productController,
 };

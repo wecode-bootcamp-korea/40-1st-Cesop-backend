@@ -2,6 +2,7 @@
 CREATE TABLE
   products (
     id int NOT NULL auto_increment PRIMARY KEY,
+    main_category_id int,
     sub_category_id int,
     product_name VARCHAR(200),
     product_image VARCHAR(3000),
@@ -16,6 +17,7 @@ CREATE TABLE
     amount_used VARCHAR(100),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (main_category_id) REFERENCES main_category_id (id)
     FOREIGN KEY (sub_category_id) REFERENCES sub_category_id (id)
   );
 

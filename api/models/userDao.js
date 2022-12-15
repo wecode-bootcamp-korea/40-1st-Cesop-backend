@@ -20,7 +20,7 @@ const createUser = async (lastName, firstName, email, password) => {
   return result.insertId;
 };
 
-const getUserByEmail = async email => {
+const getUserByEmail = async (email) => {
   const result = await dataSource.query(
     `
 		SELECT 
@@ -36,7 +36,7 @@ const getUserByEmail = async email => {
   return result[0];
 };
 
-const getUserById = async id => {
+const getUserById = async (id) => {
   const result = await dataSource.query(
     `
 		SELECT 
@@ -56,5 +56,5 @@ const getUserById = async id => {
 module.exports = {
   createUser,
   getUserByEmail,
-  getUserById
+  getUserById,
 };
