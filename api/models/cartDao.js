@@ -11,52 +11,81 @@ const addToCart = async (productName, quantity, price, totalPrice) => {
 		) VALUES (?, ?,	?, ?)`,
     [productName, quantity, price, totalPrice]
   );
-  return result[0];
+  return result;
 };
 
-const getProductsFromCart = async id => {
+const getProductsFromCart = async cartId => {
   const result = await dataSource.query(
     `
-		SELECT 
+		SELECT
+      id,       
+      user_id,
       product_name, 
       quantity,
       price,
       total_price
-		FROM cart_items
-		WHERE id=${id}`
+		  FROM cart_items      
+      WHERE id=?`,
+    [cartId]
   );
-  return result[0];
-};
-//products(id)  <----------이게 기반되어 들어가야할듯
-// 현재는 카트아이디로 했으나 유저아이디 기반 등으로 변경필요?
-// 수정과 같은 id를 넣어서 어째 원하는 상품이 쭉 상품아이디가 들어가야할듯
 
-const updateCart = async id => {
-  //  << product(id)를 변경해서 해야함
-  const updateProduct = await dataSource.query(
-    // <<프로덕트id를 받아서 그중 상품명, 가격만 바꿔주는 쿼리문
-    `
-	   UPDATE cart_items    
-     WHERE id=${id}`
-  ); // 상품번호만 바꿔주면 이름과 가격이 자동변경되어야함
-  //수량변경에 집중해서 //하나로 add 수량 업데이트보단 수량추가하는 개념으로 already has product Id  need to add
-  const result = await dataSource.query(`   
+  return result;
+};
+
+const updateCart = async (productName, quantity, price, totalPrice) => {
+  const queryRunner = appDataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
+
+  try {
+    if (!productName) {
+      productName = null;
+    }
+    if (!quantity) {
+      quantity = null;
+    }
+
+    const updateProduct = await queryRunner.query(
+      `
+	   UPDATE cart_items
+     SET  productName = ?,
+          quantity    = ?,
+          price       = ?,
+          total_Price = ?
+          WHERE id = ? AND product_id = ? AND user_id = ?`,
+      [productName, quantity, price, totalPrice]
+    );
+
+    if (updateProduct !== 1) throw new Error("UNEXPECTED_CART_ITEM_UPDATED");
+
+    const result = await queryRunner.query(
+      `   
     SELECT
-      product_name,
-      quantity,
-      price,
-      total_price
-    FROM cart_items  
-    `);
-  return result[0];
-}; //typeorm>transaction //공식문서
+      c.id,
+      c.product_name,
+      c.quantity,
+      c.price,
+      c.total_price
+    FROM cart_items c  
+    INNER JOIN users u On u.id = c.user_id
+    WHERE u.id =? And c.id =?`,
+      [userId, postId]
+    );
+    await queryRunner.commitTransaction();
+    return result;
+  } catch (err) {
+    await queryRunner.rollbackTransaction();
+  } finally {
+    await queryRunner.release();
+  }
+};
 
 const deleteFromCart = async id => {
   const result = await dataSource.query(
     `
 	   DELETE FROM cart_items WHERE id=${id}`
   );
-  return result[0];
+  return result;
 };
 
 module.exports = {

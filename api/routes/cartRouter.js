@@ -10,7 +10,7 @@ const router = express.Router();
 // router.patch("/", loginRequired, cartController.updateCart);
 // router.delete("/:cartId", loginRequired, cartController.deleteFromCart);
 
-router.post("/", cartController.addToCart);
+router.post("/add", cartController.addToCart);
 router.get("/", cartController.getProductsFromCart);
 router.patch("/", cartController.updateCart);
 router.delete("/:id", cartController.deleteFromCart);

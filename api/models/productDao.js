@@ -3,8 +3,9 @@ const dataSource = require("./dataSource");
 const getAllProducts = async () => {
   const resultAll = await dataSource.query(
     `SELECT
-		id, 
-    sub_categories_id, 
+		id,
+    main_category_id, 
+    sub_category_id, 
     product_name,
     product_image, 
     size,
@@ -24,7 +25,7 @@ const getAllProducts = async () => {
   return resultAll;
 };
 
-const getProductsByCategories = async id => {
+const getProductByMain = async id => {
   const results = await dataSource.query(
     `
 		SELECT 
@@ -44,7 +45,33 @@ const getProductsByCategories = async id => {
 		FROM 
 		products 
 		WHERE 
-		sub_categories_id = '${id}'
+		main_category_id = '${id}'
+		`
+  );
+  return results;
+};
+
+const getProductByCategory = async id => {
+  const results = await dataSource.query(
+    `
+		SELECT 
+		product_name,
+    product_image, 
+    size,
+    price,
+    product_description,
+    feeling, 
+    texture_image,
+    howtouse, 
+    texture,
+    flavor,
+    amount_used,
+    created_at,
+    updated_at 
+		FROM 
+		products 
+		WHERE 
+		sub_category_id = '${id}'
 		`
   );
   return results;
@@ -54,7 +81,7 @@ const getProductsByUserId = async productId => {
   const product = await dataSource.query(
     `SELECT
       id, 
-      sub_categories_id, 
+      sub_category_id, 
       product_name,
       product_image, 
       size,
@@ -74,13 +101,14 @@ const getProductsByUserId = async productId => {
 		`
   );
   return product;
-}; //
+};
 
 const getProductsByName = async name => {
   const result = await dataSource.query(
     `
 		SELECT 
-		product_name,
+		sub_category_id,
+    product_name,
     product_image, 
     size,
     price,
@@ -105,7 +133,8 @@ const getProductsByName = async name => {
 
 module.exports = {
   getAllProducts,
-  getProductsByCategories,
-  getProductsByUserId, //
+  getProductByMain,
+  getProductByCategory,
+  getProductsByUserId,
   getProductsByName
 };
