@@ -20,7 +20,7 @@ const loginRequired = async (req, res, next) => {
   const user = await userService.getUserById(decoded.id);
 
   if (!user) {
-    const error = new Error("USER_DOES_NOT_EXIST");
+    const error = new Error("USER_DOES_NOT_EXIST!");
     error.statusCode = 404;
 
     return res.status(error.statusCode).json({ message: error.message });
