@@ -2,9 +2,11 @@ const { cartService } = require("../services");
 const { catchAsync } = require("../utils/error");
 
 const addToCart = catchAsync(async (req, res) => {
-  const { productName, quantity, price, totalPrice } = req.body;
+  console.log(req);
+  const { productId, productName, quantity, price, totalPrice } = req.body;
 
   const cartId = await cartService.addToCart(
+    productId,
     productName,
     quantity,
     price,
@@ -17,19 +19,19 @@ const addToCart = catchAsync(async (req, res) => {
 const getProductsFromCart = catchAsync(async (req, res) => {
   const { cartId } = req.body;
 
-  return res.status(200).json(await cartService.getProductsFromCart(cartId));
+  return res.status(200).json(await cartService.getProductsFromCart());
 });
 
 const updateCart = async (req, res) => {
-  const { productName, quantity, price, totalPrice } = req.body; //d
-  // const userId = req.user.id;  // 실제로 써야하는 코드
-  const userId = 4; //테스트용 코드
+  const { productName, quantity, price, totalPrice } = req.body; //
+  const userId = req.user.id; // 실제로 써야하는 코드
+  // const userId = 4; //테스트용 코드
   const productId = parseInt(req.params.productId);
 
-  try {
+  tr
     const products = await cartService.updateCart(
-      productName,
-      quantity,
+   y {   productName,
+   ㄺ   quantity,
       price,
       totalPrice,
       userId,
@@ -42,7 +44,6 @@ const updateCart = async (req, res) => {
 };
 
 const deleteFromCart = async (req, res) => {
-  // const userId = req.user.id; //어차피 로그인 상태이니 필요없을듯
   const productId = req.params.id;
 
   try {
@@ -59,3 +60,4 @@ module.exports = {
   updateCart,
   deleteFromCart
 };
+

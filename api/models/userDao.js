@@ -19,7 +19,7 @@ const createUser = async (lastName, firstName, email, password) => {
   return result.insertId;
 };
 
-const getUserByEmail = async (email) => {
+const getUserByEmail = async email => {
   const result = await dataSource.query(
     `
 		SELECT 
@@ -34,7 +34,7 @@ const getUserByEmail = async (email) => {
   return result[0];
 };
 
-const getUserById = async (id) => {
+const getUserById = async id => {
   const result = await dataSource.query(
     `
 		SELECT 
@@ -50,21 +50,24 @@ const getUserById = async (id) => {
   return result[0];
 };
 
-const info = async (id) => {
-  const result = await dataSource.query(
-    `
-		SELECT						
-			last_name,
-			first_name,
-			email			
-		FROM users WHERE = ? 		
-		`, [id]
-  );
-  return result;
-};
+// const info = async (id) => {
+//   const result = await dataSource.query(
+//     `
+// 		SELECT
+// 			last_name,
+// 			first_name,
+// 			email,
+// 			point
+// 		FROM users WHERE id= ?
+// 		`,
+//     [id]
+//   );
+//   return result;
+// };
 
 module.exports = {
   createUser,
   getUserByEmail,
   getUserById
+  // info
 };

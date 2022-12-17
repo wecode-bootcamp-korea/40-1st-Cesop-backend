@@ -3,8 +3,10 @@ const { promisify } = require("util");
 const { userService } = require("../services");
 
 const loginRequired = async (req, res, next) => {
-  const accessToken = req.headers.authorization;
-
+  const accessToken = req.authorization;
+  console.log(req);
+  console.log(req.headers);
+  console.log(accessToken);
   if (!accessToken) {
     const error = new Error("NEED_ACCESS_TOKEN");
     error.statusCode = 401;

@@ -1,40 +1,46 @@
 const dataSource = require("./dataSource");
 
-const addToCart = async (productName, quantity, price, totalPrice) => {
+const addToCart = async (
+  productId,
+  productName,
+  quantity,
+  price,
+  totalPrice
+) => {
   const result = await dataSource.query(
     `
 	  INSERT INTO cart_items (
+      product_id,
       product_name, 
       quantity,
       price,
-      sub_price
       total_price
-		) VALUES (?, ?,	?, ?)`,
-    [productName, quantity, price, totalPrice]
+		) VALUES (?, ?, ?, ?, ?)`,
+    [productId, productName, quantity, price, totalPrice]
   );
   return result;
 };
 
-const getProductsFromCart = async cartId => {
+const getProductsFromCart = async () => {
   const result = await dataSource.query(
     `
 		SELECT
-      id,       
-      user_id,
-      product_name, 
-      quantity,
-      price,
-      total_price
-		  FROM cart_items      
-      WHERE id=?`,
-    [cartId]
+      c.id,       
+      c.product_name as productName, 
+      c.quantity,
+      c.price, 
+      p.size as productSize
+		  FROM cart_items c
+      INNER JOIN
+      products p
+      ON
+      p.id = c.product_id
+      `
   );
-
   return result;
 };
 
 const updateCart = async (
-  //
   productName,
   quantity,
   price,

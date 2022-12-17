@@ -1,11 +1,11 @@
 const { cartDao } = require("../models");
 
-const addToCart = async (productName, quantity, price, totalPrice) => {
-  return await cartDao.addToCart(productName, quantity, price, totalPrice);
+const addToCart = async (productId, productName, quantity, price, totalPrice) => {
+  return await cartDao.addToCart(productId, productName, quantity, price, totalPrice);
 };
 
-const getProductsFromCart = async cartId => {
-  const cart = await cartDao.getProductsFromCart(cartId);
+const getProductsFromCart = async () => {
+  const cart = await cartDao.getProductsFromCart();
   return cart;
 };
 
