@@ -16,9 +16,3 @@ router.get("/search", getProductsByName);
 
 module.exports = router;
 
-// 하단코드 우진님이 원하시는 경로명
-// router.get("/all", getAllProducts);
-// router.get("/main/:id", getProductByCategory); // need to make main_categories
-// router.get("/main/:id/sub/:id", getProductByCategory);
-// router.get("/main/:id/sub/:id/product/:id", getProductsByUserId);
-// router.get("/search", getProductsByName);
