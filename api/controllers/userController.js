@@ -32,17 +32,7 @@ const signIn = async (req, res) => {
   }
 };
 
-// const info = catchAsync(async (req, res) => {
-
-//   const userId = req.user[0].id;
-
-//   // const userId = req.body.id // 테스트용
-//   const data = await userService.info(userId);
-//   return res.status(200).json(data);
-// });
-
 module.exports = {
   signUp,
   signIn
-  // info
 };
