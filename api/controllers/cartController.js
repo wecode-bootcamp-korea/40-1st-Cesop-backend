@@ -2,7 +2,6 @@ const { cartService } = require("../services");
 const { catchAsync } = require("../utils/error");
 
 const addToCart = catchAsync(async (req, res) => {
-  console.log(req);
   const { productId, productName, quantity, price, totalPrice } = req.body;
 
   const cartId = await cartService.addToCart(
@@ -24,14 +23,13 @@ const getProductsFromCart = catchAsync(async (req, res) => {
 
 const updateCart = async (req, res) => {
   const { productName, quantity, price, totalPrice } = req.body; //
-  const userId = req.user.id; // 실제로 써야하는 코드
-  // const userId = 4; //테스트용 코드
+  const userId = req.user.id; 
   const productId = parseInt(req.params.productId);
 
-  tr
+  try{
     const products = await cartService.updateCart(
-   y {   productName,
-   ㄺ   quantity,
+      productName,
+      quantity,
       price,
       totalPrice,
       userId,
@@ -45,7 +43,7 @@ const updateCart = async (req, res) => {
 
 const deleteFromCart = async (req, res) => {
   const productId = req.params.id;
-
+  
   try {
     await cartService.deleteFromCart(productId);
     res.status(204).send();

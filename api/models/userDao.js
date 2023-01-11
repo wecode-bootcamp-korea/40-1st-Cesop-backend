@@ -50,24 +50,8 @@ const getUserById = async id => {
   return result[0];
 };
 
-// const info = async (id) => {
-//   const result = await dataSource.query(
-//     `
-// 		SELECT
-// 			last_name,
-// 			first_name,
-// 			email,
-// 			point
-// 		FROM users WHERE id= ?
-// 		`,
-//     [id]
-//   );
-//   return result;
-// };
-
 module.exports = {
   createUser,
   getUserByEmail,
   getUserById
-  // info
 };

@@ -60,7 +60,6 @@ const updateCart = async (
     `,
     [productName, quantity, price, totalPrice, userId, productId]
   );
-  // console.log(result.affectedRows);
   return result;
 };
 
